@@ -2,38 +2,49 @@ defmodule UbechatWeb.Router do
   use UbechatWeb, :router
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
   end
 
   pipeline :auth do
-    plug :accepts, ["json"]
-    plug UbechatWeb.AuthPlug
+    plug(:accepts, ["json"])
+    plug(UbechatWeb.AuthPlug)
   end
 
   # ---------------------------------------------------------------------------
   # Public routes — no token required
   # ---------------------------------------------------------------------------
   scope "/api", UbechatWeb do
-    pipe_through :api
+    pipe_through(:api)
 
-    post "/auth/register", AuthController, :register
-    post "/auth/login", AuthController, :login
+    post("/auth/register", AuthController, :register)
+    post("/auth/login", AuthController, :login)
+
+    get("/calendar/auth-url", GoogleAuthController, :auth_url)
   end
 
   # ---------------------------------------------------------------------------
   # Protected routes — valid JWT required (AuthPlug)
   # ---------------------------------------------------------------------------
   scope "/api", UbechatWeb do
-    pipe_through :auth
+    pipe_through(:auth)
 
-    get "/auth/me", AuthController, :me
-    put "/auth/me", AuthController, :update_me
-    put "/auth/public_key", AuthController, :register_public_key
-    get "/users/:id/public_key", AuthController, :get_public_key
+    get("/auth/me", AuthController, :me)
+    put("/auth/me", AuthController, :update_me)
+    put("/auth/public_key", AuthController, :register_public_key)
+    get("/users/:id/public_key", AuthController, :get_public_key)
 
-    get "/users", UserController, :index
+    get("/users", UserController, :index)
+
+    # Google Calendar protected endpoints
+    post("/calendar/callback", GoogleAuthController, :callback)
+    get("/calendar/events", CalendarController, :list_events)
+    post("/calendar/events", CalendarController, :create_event)
+    post("/calendar/sync", CalendarController, :sync_now)
+
+    # AI Agent hybrid context endpoints
+    post("/ai/search", AiController, :search)
+    post("/ai/graph", AiController, :graph_query)
   end
-
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:ubechat, :dev_routes) do
@@ -45,10 +56,10 @@ defmodule UbechatWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/dev" do
-      pipe_through [:fetch_session, :protect_from_forgery]
+      pipe_through([:fetch_session, :protect_from_forgery])
 
-      live_dashboard "/dashboard", metrics: UbechatWeb.Telemetry
-      forward "/mailbox", Plug.Swoosh.MailboxPreview
+      live_dashboard("/dashboard", metrics: UbechatWeb.Telemetry)
+      forward("/mailbox", Plug.Swoosh.MailboxPreview)
     end
   end
 end

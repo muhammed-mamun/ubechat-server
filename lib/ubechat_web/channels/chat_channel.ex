@@ -39,6 +39,9 @@ defmodule UbechatWeb.ChatChannel do
 
     case Messages.insert_message(room_id, sender_id, ciphertext, now_ms) do
       {:ok, msg} ->
+        # Push a duplicate record asynchronously natively to the Memgraph API layer
+        Ubechat.Graph.log_chat_message(room_id, sender_id, ciphertext, now_ms)
+
         broadcast!(socket, "new_msg", msg)
         {:reply, :ok, socket}
 

@@ -1,0 +1,4 @@
+
+08:47:05.697 [info] == Running 20260419024656 Ubechat.Repo.Migrations.AddPgvectorExtension.change/0 forward
+
+08:47:05.700 [info] == Migrated 20260419024656 in 0.0s

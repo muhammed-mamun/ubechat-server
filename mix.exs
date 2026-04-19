@@ -57,7 +57,12 @@ defmodule Ubechat.MixProject do
       {:joken, "~> 2.6"},
       # ScyllaDB / Cassandra
       {:xandra, "~> 0.19"},
-      {:websockex, "~> 0.4.3", only: [:dev, :test]}
+      {:websockex, "~> 0.4.3", only: [:dev, :test]},
+      {:pgvector, "~> 0.3.0"},
+      {:boltex, "~> 0.4.1"},
+      {:bumblebee, "~> 0.5.3"},
+      {:exla, "~> 0.7.1"},
+      {:oban, "~> 2.17"}
     ]
   end
 

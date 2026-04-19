@@ -1,25 +1,36 @@
-Compiling 7 files (.ex)
-Generated ubechat app
+You have configured application :bolt_sips in your configuration file,
+but the application is not available.
+
+This usually means one of:
+
+  1. You have not added the application as a dependency in a mix.exs file.
+
+  2. You are configuring an application that does not really exist.
+
+Please ensure :bolt_sips exists or remove the configuration.
+
 [info] Running UbechatWeb.Endpoint with Bandit 1.10.4 at 127.0.0.1:4000 (http)
 [info] Access UbechatWeb.Endpoint at http://localhost:4000
-[info] POST /api/auth/register
-[debug] Processing with UbechatWeb.AuthController.register/2
-  Parameters: %{"display_name" => "Testing", "email" => "presence@test.com", "password" => "[FILTERED]"}
-  Pipelines: [:api]
-[debug] QUERY OK source="users" db=6.0ms queue=0.7ms idle=1096.4ms
-INSERT INTO "users" ("password","email","display_name","is_online","is_verified") VALUES ($1,$2,$3,$4,$5) RETURNING "id","updated_at","created_at" ["$2b$12$4WwyFDedyjY1QTLQyIzUoe9ytzR1siBe8ImpJPpeYkm4Rxk/1UtvW", "presence@test.com", "Testing", false, false]
-[90m↳ UbechatWeb.AuthController.register/2, at: lib/ubechat_web/controllers/auth_controller.ex:25[0m
-[info] Sent 201 in 304ms
-[info] GET /api/users
-[debug] Processing with UbechatWeb.UserController.index/2
+[info] CONNECTED TO UbechatWeb.UserSocket in 108ms
+  Transport: :websocket
+  Serializer: Phoenix.Socket.V2.JSONSerializer
+  Parameters: %{"token" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKb2tlbiIsImV4cCI6MTc3NzE3MjIxMSwiaWF0IjoxNzc2NTY3NDExLCJpc3MiOiJKb2tlbiIsImp0aSI6IjMyanE1OWZwYWtwdmlkcXFvbzAwMDNmMiIsIm5iZiI6MTc3NjU2NzQxMSwic3ViIjo0MH0.e66pdHPwNGZPL7byjkdDF4NbPO9sc_nyE-R3x7Aqxm0", "vsn" => "2.0.0"}
+[info] JOINED chat:39:40 in 30ms
   Parameters: %{}
-  Pipelines: [:auth]
-[debug] QUERY OK source="users" db=0.4ms queue=0.7ms idle=1223.9ms
-SELECT u0."id", u0."email", u0."password", u0."phone_number", u0."display_name", u0."avatar_url", u0."bio", u0."public_key", u0."is_online", u0."is_verified", u0."last_seen", u0."created_at", u0."updated_at" FROM "users" AS u0 WHERE (u0."id" = $1) [38]
-[90m↳ UbechatWeb.AuthPlug.call/2, at: lib/ubechat_web/plugs/auth_plug.ex:23[0m
-[debug] QUERY OK source="users" db=0.3ms queue=1.3ms idle=1226.6ms
-SELECT u0."id", u0."email", u0."password", u0."phone_number", u0."display_name", u0."avatar_url", u0."bio", u0."public_key", u0."is_online", u0."is_verified", u0."last_seen", u0."created_at", u0."updated_at" FROM "users" AS u0 []
-[90m↳ UbechatWeb.UserController.index/2, at: lib/ubechat_web/controllers/user_controller.ex:10[0m
-[info] Sent 200 in 21ms
+[info] CONNECTED TO UbechatWeb.UserSocket in 2ms
+  Transport: :websocket
+  Serializer: Phoenix.Socket.V2.JSONSerializer
+  Parameters: %{"token" => "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJKb2tlbiIsImV4cCI6MTc3NzE3MjIxMSwiaWF0IjoxNzc2NTY3NDExLCJpc3MiOiJKb2tlbiIsImp0aSI6IjMyanE1OWZvbzMxMmlkcXFvbzAwMDNlMiIsIm5iZiI6MTc3NjU2NzQxMSwic3ViIjozOX0.8dK7_IVJxTCsYqDqQTmJ-1ulJYNluVSK2H4OI6wdddc", "vsn" => "2.0.0"}
+[info] JOINED chat:39:40 in 564µs
+  Parameters: %{}
+GOT CIPHERTEXT: "Hello from Alice!"
+[debug] HANDLED new_msg INCOMING ON chat:39:40 (UbechatWeb.ChatChannel) in 22ms
+  Parameters: %{"ciphertext" => "Hello from Alice!"}
 [notice] SIGTERM received - shutting down
 
+[error] Task #PID<0.657.0> started from #PID<0.656.0> terminating
+** (WithClauseError) no with clause matching: [success: %{"fields" => []}, success: %{"cost_estimate" => 0.004, "db" => "memgraph", "has_more" => false, "notifications" => [%{"code" => "PlanHinting", "description" => "", "severity" => "INFO", "title" => "Sequential scan will be used on symbol `u` although there is a filter on labels :User and properties id. Consider creating a label-property index."}, %{"code" => "PlanHinting", "description" => "", "severity" => "INFO", "title" => "Sequential scan will be used on symbol `room` although there is a filter on labels :Room and properties id. Consider creating a label-property index."}], "number_of_hops" => 0, "parsing_time" => 0.033035492, "plan_execution_time" => 0.00366121, "planning_time" => 0.010812116, "run_id" => "08f1e699-811c-490b-9c13-b0cd76b8ae19", "stats" => %{"labels-added" => 3, "labels-removed" => 0, "nodes-created" => 3, "nodes-deleted" => 0, "properties-set" => 0, "relationships-created" => 2, "relationships-deleted" => 0}, "type" => "rw"}]
+    (ubechat 0.1.0) lib/ubechat/graph.ex:30: anonymous fn/1 in Ubechat.Graph.log_chat_message/4
+    (elixir 1.17.3) lib/task/supervised.ex:101: Task.Supervised.invoke_mfa/2
+Function: #Function<0.67326778/0 in Ubechat.Graph.log_chat_message/4>
+    Args: []

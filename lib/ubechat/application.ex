@@ -16,6 +16,9 @@ defmodule Ubechat.Application do
       {DNSCluster, query: Application.get_env(:ubechat, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Ubechat.PubSub},
       UbechatWeb.Presence,
+      {Nx.Serving,
+       serving: Ubechat.Embeddings.serving(), name: Ubechat.Embeddings.Serving, batch_timeout: 100},
+      {Oban, Application.fetch_env!(:ubechat, Oban)},
       # Start a worker by calling: Ubechat.Worker.start_link(arg)
       # {Ubechat.Worker, arg},
       # Start to serve requests, typically the last entry

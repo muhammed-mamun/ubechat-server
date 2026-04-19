@@ -39,6 +39,22 @@ config :logger, :default_formatter,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Google Calendar Integration
+config :ubechat, :google_oauth,
+  client_id: System.get_env("GOOGLE_CLIENT_ID") || "REPLACE_ME_CLIENT_ID",
+  client_secret: System.get_env("GOOGLE_CLIENT_SECRET") || "REPLACE_ME_CLIENT_SECRET",
+  redirect_uri:
+    System.get_env("GOOGLE_REDIRECT_URI") || "exp://localhost:8081/--/api/calendar/callback"
+
+# Machine Learning / Tensor Backend
+config :nx, default_backend: EXLA.Backend
+
+# Oban Background Jobs Core
+config :ubechat, Oban,
+  engine: Oban.Engines.Basic,
+  queues: [calendar_sync: 10],
+  repo: Ubechat.Repo
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

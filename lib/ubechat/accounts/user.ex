@@ -34,6 +34,8 @@ defmodule Ubechat.Accounts.User do
 
     field :inserted_at, :utc_datetime, source: :created_at, read_after_writes: true
     field :updated_at, :utc_datetime, source: :updated_at, read_after_writes: true
+
+    has_many :integrations, Ubechat.Accounts.Integration
   end
 
   # ---------------------------------------------------------------------------

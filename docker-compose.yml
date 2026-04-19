@@ -13,5 +13,16 @@ services:
       - scylla_data:/var/lib/scylla
     command: --smp 1 --developer-mode 1
 
+  memgraph:
+    image: memgraph/memgraph-mage:latest
+    container_name: ubechat_memgraph
+    ports:
+      - "7687:7687"
+      - "7444:7444"
+      - "3000:3000"
+    volumes:
+      - memgraph_data:/var/lib/memgraph
+
 volumes:
   scylla_data:
+  memgraph_data:

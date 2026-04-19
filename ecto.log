@@ -1,0 +1,6 @@
+Compiling 29 files (.ex)
+Generated ubechat app
+
+09:06:35.642 [info] == Running 20260419030601 Ubechat.Repo.Migrations.AddOban.change/0 forward
+
+09:06:35.645 [info] == Migrated 20260419030601 in 0.0s
