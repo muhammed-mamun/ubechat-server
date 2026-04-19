@@ -12,7 +12,7 @@ config :ubechat, Ubechat.Repo,
 
 # ScyllaDB dev config (local or cloud)
 config :ubechat, :scylla,
-  nodes: [{"127.0.0.1", 9042}],
+  nodes: ["127.0.0.1:9042"],
   keyspace: "ubechat"
 
 # JWT config

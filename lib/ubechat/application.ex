@@ -7,11 +7,15 @@ defmodule Ubechat.Application do
 
   @impl true
   def start(_type, _args) do
+    scylla_opts = Application.get_env(:ubechat, :scylla, [])
+
     children = [
       UbechatWeb.Telemetry,
       Ubechat.Repo,
+      {Xandra.Cluster, Keyword.put(scylla_opts, :name, Ubechat.Scylla)},
       {DNSCluster, query: Application.get_env(:ubechat, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Ubechat.PubSub},
+      UbechatWeb.Presence,
       # Start a worker by calling: Ubechat.Worker.start_link(arg)
       # {Ubechat.Worker, arg},
       # Start to serve requests, typically the last entry

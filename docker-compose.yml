@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  scylladb:
+    image: scylladb/scylla:5.4
+    container_name: ubechat_scylla
+    ports:
+      - "9042:9042"    # Native transport (CQL)
+      - "19042:19042"  # Native transport (TLS/SSL)
+      - "7000:7000"    # Inter-node communication
+      - "9160:9160"    # Thrift client API (legacy)
+    volumes:
+      - scylla_data:/var/lib/scylla
+    command: --smp 1 --developer-mode 1
+
+volumes:
+  scylla_data:

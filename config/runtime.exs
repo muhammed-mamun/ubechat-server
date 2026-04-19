@@ -75,7 +75,7 @@ if config_env() == :prod do
     scylla_hosts_raw
     |> String.split(",")
     |> Enum.map(&String.trim/1)
-    |> Enum.map(fn h -> {h, 9042} end)
+    |> Enum.map(fn h -> h <> ":9042" end)
 
   config :ubechat, :scylla,
     nodes: scylla_nodes,

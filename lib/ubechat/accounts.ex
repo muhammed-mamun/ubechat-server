@@ -74,4 +74,11 @@ defmodule Ubechat.Accounts do
       nil -> {:error, :not_found}
     end
   end
+  @doc """
+  Returns a list of all registered users.
+  In a production system, this should be paginated, but for now we list all.
+  """
+  def list_users do
+    Repo.all(User)
+  end
 end

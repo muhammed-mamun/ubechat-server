@@ -30,6 +30,8 @@ defmodule UbechatWeb.Router do
     put "/auth/me", AuthController, :update_me
     put "/auth/public_key", AuthController, :register_public_key
     get "/users/:id/public_key", AuthController, :get_public_key
+
+    get "/users", UserController, :index
   end
 
 

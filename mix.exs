@@ -56,7 +56,8 @@ defmodule Ubechat.MixProject do
       {:bcrypt_elixir, "~> 3.0"},
       {:joken, "~> 2.6"},
       # ScyllaDB / Cassandra
-      {:xandra, "~> 0.19"}
+      {:xandra, "~> 0.19"},
+      {:websockex, "~> 0.4.3", only: [:dev, :test]}
     ]
   end
 
