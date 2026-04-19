@@ -1,0 +1,20 @@
+[info] Running UbechatWeb.Endpoint with Bandit 1.10.4 at 127.0.0.1:4000 (http)
+[info] Access UbechatWeb.Endpoint at http://localhost:4000
+[info] POST /api/auth/register
+[debug] Processing with UbechatWeb.AuthController.register/2
+  Parameters: %{"display_name" => "TestAPI1", "email" => "test_api1@test.com", "password" => "[FILTERED]"}
+  Pipelines: [:api]
+[debug] QUERY OK source="users" db=24.7ms queue=0.6ms idle=1663.8ms
+INSERT INTO "users" ("password","display_name","email","is_online","is_verified") VALUES ($1,$2,$3,$4,$5) RETURNING "id" ["$2b$12$jwBaFP7/MmLjJQjI3ZIvQu/G0mYNAYVEVW.hAoZnK9pHtd8Ra8bi.", "TestAPI1", "test_api1@test.com", false, false]
+[90m↳ UbechatWeb.AuthController.register/2, at: lib/ubechat_web/controllers/auth_controller.ex:25[0m
+[info] Sent 201 in 350ms
+[info] POST /api/auth/login
+[debug] Processing with UbechatWeb.AuthController.login/2
+  Parameters: %{"email" => "test_api1@test.com", "password" => "[FILTERED]"}
+  Pipelines: [:api]
+[debug] QUERY OK source="users" db=2.5ms queue=0.9ms idle=1810.1ms
+SELECT u0."id", u0."email", u0."password", u0."phone_number", u0."display_name", u0."avatar_url", u0."bio", u0."public_key", u0."is_online", u0."is_verified", u0."last_seen", u0."created_at", u0."updated_at" FROM "users" AS u0 WHERE (u0."email" = $1) ["test_api1@test.com"]
+[90m↳ Ubechat.Accounts.authenticate_user/2, at: lib/ubechat/accounts.ex:29[0m
+[info] Sent 200 in 208ms
+[notice] SIGTERM received - shutting down
+
